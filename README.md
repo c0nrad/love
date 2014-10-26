@@ -1,5 +1,7 @@
 # Sylvia Plath AI
 
+![Sylvia](http://upload.wikimedia.org/wikipedia/en/e/e4/Sylvia_plath.jpg)
+
 An attempt to create a sylvia plath chatter bot.
 
 ```
@@ -33,4 +35,10 @@ I
 am
 only
 thirty.
+```
+
+## Build
+```
+go build
+./love
 ```
