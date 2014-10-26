@@ -6,10 +6,6 @@ import (
   "bytes"
 )
 
-const (
-  DataDirectory = "./data/"
-)
-
 func readFile(filename string) [][]byte {
   data, err := ioutil.ReadFile(filename);
   if err != nil {
@@ -42,7 +38,7 @@ func LearnFile(filename string) {
 }
 
 func LearnFiles(dir string) {
-  files, err := ioutil.ReadDir(DataDirectory);
+  files, err := ioutil.ReadDir(dir);
   if err != nil {
       log.Fatal("Error reading directory", err)
   }

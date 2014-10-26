@@ -16,7 +16,6 @@ func NextIdea(currIdea *Idea) (*Idea) {
   totalSum := 0;
   for _, link := range links {
     totalSum += link.Count;
-    //fmt.Println("Related Ideas...", link.To.Word, " ", link.Count);
   }
   rand.Seed(time.Now().Unix())
   nextPath := rand.Intn(totalSum)
@@ -28,6 +27,6 @@ func NextIdea(currIdea *Idea) (*Idea) {
     currSum += link.Count;
   }
 
-  fmt.Println("UH OH!", currIdea.Word, nextPath);
+  fmt.Println("UH OH! This shouldn't happen", currIdea.Word, nextPath);
   return currIdea;
 }

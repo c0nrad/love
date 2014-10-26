@@ -81,12 +81,3 @@ func dumpBrain() {
     }
   }
 }
-
-// func main() {
-//   LearnIdea("Sylvia");
-//   LearnIdea("Sylvia");
-//
-//   LearnLink("Holly", "Hawt");
-//   dumpBrain()
-//   fmt.Print(Ideas, Links)
-// }
