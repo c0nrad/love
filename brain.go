@@ -11,7 +11,7 @@ type Idea struct {
 type Link struct {
   From *Idea
   To *Idea
-  Count int
+  Count int64
 }
 
 var Ideas []*Idea;

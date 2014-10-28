@@ -6,12 +6,7 @@ import (
   "bytes"
 )
 
-func readFile(filename string) [][]byte {
-  data, err := ioutil.ReadFile(filename);
-  if err != nil {
-    log.Fatal("Error reading file", err);
-  }
-
+func tokenize(data []byte) ([][]byte) {
   data = bytes.Replace(data, []byte("\n"), []byte(" "), -1);
   data = bytes.Replace(data, []byte("\t"), []byte(" "), -1);
   words := bytes.Split(data, []byte(" "));
@@ -25,6 +20,15 @@ func readFile(filename string) [][]byte {
     out = append(out, w);
   }
   return out;
+}
+
+func readFile(filename string) [][]byte {
+  data, err := ioutil.ReadFile(filename);
+  if err != nil {
+    log.Fatal("Error reading file", err);
+  }
+
+  return tokenize(data);
 }
 
 func LearnFile(filename string) {

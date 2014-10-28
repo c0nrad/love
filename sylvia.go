@@ -7,13 +7,16 @@ import (
 
 func main() {
   LearnFile("./data/lady_lazarus");
-  //dumpBrain()
+  //LearnFile("./data/bell_jar");
 
   currentIdea := findIdea("I");
 
+  TriggerSentence("Sylvia, do you love me?", 2);
+  //dumpBrain();
+
   for {
-    fmt.Println(currentIdea.Word);
+    fmt.Print(currentIdea.Word, " ");
     currentIdea = NextIdea(currentIdea);
-    time.Sleep(1000 * time.Millisecond)
+    time.Sleep(300 * time.Millisecond)
   }
 }
