@@ -4,37 +4,49 @@ import (
   "fmt"
   )
 
-type Idea struct {
+type Node struct {
   Word string
 }
 
 type Link struct {
-  From *Idea
-  To *Idea
-  Count int64
+  From *Node
+  To *Node
+  Next *Link;
+  Count int64;
 }
 
-var Ideas []*Idea;
+var Nodes []*Node;
 var Links []*Link;
 
-func LearnIdea(word string) (*Idea) {
-  idea := new(Idea);
-  idea.Word = word;
-  Ideas = append(Ideas, idea);
-  return idea
+func Forget() {
+  Nodes = []*Node{};
+  Links = []*Link{};
 }
 
-func LearnLink(from, to string) (*Link) {
-  fromIdea := findIdea(from);
-  toIdea := findIdea(to);
+func LearnNode(word string) (*Node) {
+  node := new(Node);
+  node.Word = word;
+  Nodes = append(Nodes, node);
+  return node
+}
 
-  link := findLink(fromIdea, toIdea)
+func LearnLink(fromNode, toNode *Node, prev *Link) (*Link) {
 
-  link.Count += 1;
+  link := new(Link);
+  link.From = fromNode;
+  link.To = toNode;
+  link.Count = 1;
+  link.Next = nil;
+
+  if prev != nil {
+    prev.Next = link;
+  }
+  Links = append(Links, link);
+
   return link;
 }
 
-func findLink(from, to *Idea) (*Link) {
+func findLink(from, to *Node) (*Link) {
   for _, link := range Links {
     if link.To == to && link.From == from {
       return link;
@@ -49,17 +61,17 @@ func findLink(from, to *Idea) (*Link) {
   return link;
 }
 
-func findIdea(word string) (*Idea){
-  for _, idea := range Ideas {
-    if idea.Word == word {
-      return idea;
+func findNode(word string) (*Node){
+  for _, node := range Nodes {
+    if node.Word == word {
+      return node;
     }
   }
 
-  return LearnIdea(word)
+  return LearnNode(word)
 }
 
-func findLinks(from *Idea) ([]*Link) {
+func findLinks(from *Node) ([]*Link) {
   out := []*Link{};
 
   for _, link := range Links {
@@ -72,12 +84,21 @@ func findLinks(from *Idea) ([]*Link) {
 
 func dumpBrain() {
 
-  for _, idea := range Ideas {
-    links := findLinks(idea);
-    fmt.Println(idea.Word);
+  for _, node := range Nodes {
+    links := findLinks(node);
+    fmt.Println(node.Word);
 
     for _, link := range links {
-      fmt.Print("\t", link.To.Word, " ", link.Count, "\n");
+      fmt.Println("\tTo: ", link.To.Word);
     }
   }
+  fmt.Println("");
+
+  currLink := Links[0];
+  for currLink.Next != nil {
+    fmt.Print(currLink.From.Word, " ")
+    currLink = currLink.Next;
+  }
+
+  fmt.Println(currLink.To.Word);
 }

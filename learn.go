@@ -34,10 +34,13 @@ func readFile(filename string) [][]byte {
 func LearnFile(filename string) {
   words := readFile(filename)
 
-  prevWord:= "I";
+  fromNode := findNode("I");
+  var prevLink *Link = nil;
 
   for _, word := range words {
-    prevWord = LearnLink(prevWord, string(word)).To.Word;
+    toNode := findNode(string(word));
+    prevLink = LearnLink(fromNode, toNode, prevLink);
+    fromNode = prevLink.To;
   }
 }
 
